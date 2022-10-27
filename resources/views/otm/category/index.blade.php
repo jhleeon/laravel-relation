@@ -7,21 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <title>people nid list</title>
+    <title>category add</title>
 </head>
 
 <body>
-
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="card">
-                    <div class="card-header ">
-                        @if(session('message'))
-                            <div class="alert alert-warning">{{session('message')}}</div>
-                        @endif
-                        <h4 class="d-flex justify-content-center">Entry an Nid Number</h4>
-                        <a href="{{route('people.create')}}" type="btn" class="btn btn-info btn-sm">ADD</a>
+                    <div class="card-header">
+                        <h4 class="d-flex justify-content-center lead">
+                            Index page
+                        </h4>
+                        <a href="{{ route('categories.create') }}" type="btn" class="btn btn-info">Add Category</a>
                     </div>
                     <div class="card-body">
                         <table class="table">
@@ -29,32 +27,26 @@
                                 <tr>
                                     <th>Serial</th>
                                     <th>Name</th>
-                                    <th>NID</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-                                @foreach($peoples as $people)
+                                @foreach($categories as $category)
                                 <tr>
-                                    <td>{{$people->id}}</td>
-                                    <td>{{$people->name}}</td>
-                                    <td>{{$people->nid->nid}}</td>
-
+                                    <td> {{ $category->id ?? '' }} </td>
+                                    <td> {{ $category->name ?? ''}} </td>
                                     <td>
-                                        <a href="{{ url('peoples/'.$people->id.'/edit') }}" type="btn" class="btn btn-info btn-sm">Edit</a>
-                                        <a href="{{url('peoples/'.$people->id.'/show')}}" type="btn" class="btn btn-info btn-sm">Show</a>
+                                        <a href="{{ url('categories/'.$category->id.'/edit') }}" type="btn" class="btn btn-info">Edit</a>
                                         <a>
-                                            <form action="{{route('people.delete',['people'=>$people->id])}}" method="post" class="d-inline">
+                                            <form action="{{ route('categories.delete',['id'=>$category->id]) }}" method="post" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                                                <button type="submit" class="btn btn-info">Delete</button>
                                             </form>
                                         </a>
                                     </td>
                                 </tr>
                                 @endforeach
-
 
                             </tbody>
                         </table>

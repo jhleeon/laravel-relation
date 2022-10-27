@@ -7,54 +7,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <title>people nid list</title>
+    <title>category add</title>
 </head>
 
 <body>
-
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="card">
-                    <div class="card-header ">
+                    <div class="card-header">
+                        <h4 class="d-flex justify-content-center lead">
+                            Index page
+                        </h4>
+                        <a href="{{ route('products.create') }}" type="btn" class="btn btn-info">Add product</a>
                         @if(session('message'))
-                            <div class="alert alert-warning">{{session('message')}}</div>
+                        <div class="alert alert-warning m-2">{{session('message')}}</div>
                         @endif
-                        <h4 class="d-flex justify-content-center">Entry an Nid Number</h4>
-                        <a href="{{route('people.create')}}" type="btn" class="btn btn-info btn-sm">ADD</a>
                     </div>
                     <div class="card-body">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>Serial</th>
+                                    <th>Category</th>
                                     <th>Name</th>
-                                    <th>NID</th>
+                                    <th>Price</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-                                @foreach($peoples as $people)
+                                @php
+                                $sl = 1;
+                                @endphp
+                                @foreach($products as $product)
                                 <tr>
-                                    <td>{{$people->id}}</td>
-                                    <td>{{$people->name}}</td>
-                                    <td>{{$people->nid->nid}}</td>
-
+                                    <td> {{ $sl++ }} </td>
+                                    <td> {{ $product->category->name ?? '' }} </td>
+                                    <td> {{ $product->name ?? ''}} </td>
+                                    <td> {{ $product->price ?? ''}} </td>
                                     <td>
-                                        <a href="{{ url('peoples/'.$people->id.'/edit') }}" type="btn" class="btn btn-info btn-sm">Edit</a>
-                                        <a href="{{url('peoples/'.$people->id.'/show')}}" type="btn" class="btn btn-info btn-sm">Show</a>
-                                        <a>
-                                            <form action="{{route('people.delete',['people'=>$people->id])}}" method="post" class="d-inline">
+                                        <a href="{{ url('products/'.$product->id.'/edit') }}" type="btn" class="btn btn-info">Edit</a>
+                                        <!-- <a>
+                                            <form action="{{ route('products.delete',['id'=>$product->id]) }}" method="post" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-info btn-sm">Delete</button>
+                                                <button type="submit" class="btn btn-info">Delete</button>
                                             </form>
-                                        </a>
+                                        </a> -->
                                     </td>
                                 </tr>
                                 @endforeach
-
 
                             </tbody>
                         </table>
